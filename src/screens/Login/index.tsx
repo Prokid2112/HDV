@@ -9,7 +9,7 @@ const Login = (props: any) => {
       disableDivider
       emailPlaceholder="Nhập tên đăng nhập"
       passwordPlaceholder="Nhập mật khẩu"
-      signupText="Đăng ký"
+      signupText="Đăng ký ngay"
       logoImageSource={R.images.introImage}
       onLoginPress={() => {
         props?.navigation?.replace('TabMain');
@@ -20,10 +20,18 @@ const Login = (props: any) => {
         console.log('username: ', username);
       }}
       onPasswordChange={(password: string) => {}}
+      loginButtonStyle={{backgroundColor: R.colors.primaryColor}}
+      signupTextStyle={{
+        textDecorationLine: 'underline',
+        color: R.colors.blue0084,
+      }}
       //   logoImageSource={undefined}
       logoImageStyle={{marginVertical: HEIGHT(40)}}
       loginButtonText="Đăng nhập"
       style={{backgroundColor: R.colors.backGray}}
+      emailTextInputProps={{mainColor: R.colors.primaryColor}}
+      passwordTextInputProps={{mainColor: R.colors.primaryColor}}
+      enablePasswordValidation
     />
   );
 };

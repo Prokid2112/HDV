@@ -8,11 +8,15 @@ import {
   Text,
 } from 'react-native';
 import styles from './styles';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import R from '../../assets/R';
+import {WIDTH} from '../../config';
 const routesMain = [
   {key: 0, title: 'Home'},
   {key: 1, title: 'Tìm kiếm'},
-  {key: 2, title: 'Lưu trữ'},
+  {key: 2, title: 'Bookmark'},
   {key: 3, title: 'Tài khoản'},
 ];
 const TabMain = () => {
@@ -25,11 +29,6 @@ const TabMain = () => {
     }
   };
   const onChangeIndex = (currentIndex: number, key: number) => {
-    console.log(
-      '🚀 ~ file: index.tsx:344 ~ onChangeIndex ~ currentIndex',
-      currentIndex,
-      key,
-    );
     if (index !== currentIndex) {
       LayoutAnimation.configureNext({
         duration: 500,
@@ -60,8 +59,8 @@ const TabMain = () => {
         onPress={() => onChangeIndex(currentIndex, item?.key)}
         style={[styles.containerTab]}
         testID={`${currentIndex}_${item.title}`}>
-        {/* <ItemIconSVG title={item.title} color={colorContent} />
-        <IconBadge visible={visible} amount={amountUnread} /> */}
+        <ItemIcon titles={item.title} color={colorContent} />
+        {/* <IconBadge visible={visible} amount={amountUnread} /> */}
         <Text style={[styles.title, {color: colorContent}]}>{item.title}</Text>
       </TouchableOpacity>
     );
@@ -98,3 +97,21 @@ const TabMain = () => {
   );
 };
 export default TabMain;
+const ItemIcon = ({titles, color}: {titles: string; color: string}) => {
+  let label;
+  switch (titles) {
+    case 'Home':
+      return <Entypo name="home" size={WIDTH(20)} color={color} />;
+
+    case 'Tìm kiếm':
+      return <Ionicons name="search" size={WIDTH(20)} color={color} />;
+    case 'Bookmark':
+      return <MaterialIcons name="storage" size={WIDTH(20)} color={color} />;
+    case 'Tài khoản':
+      return (
+        <MaterialIcons name="account-circle" size={WIDTH(20)} color={color} />
+      );
+    default:
+      return <Entypo name="home" size={WIDTH(20)} color={color} />;
+  }
+};

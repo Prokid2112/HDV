@@ -17,7 +17,7 @@ type Props = {
   };
 };
 
-const Intro = (props: Props) => {
+const Intro = (props: any) => {
   const timeOut = React.useRef<any>(null);
 
   React.useEffect(() => {
