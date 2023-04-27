@@ -13,17 +13,27 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import R from '../../assets/R';
 import {WIDTH} from '../../config';
+import Home from './Home';
+import TaiKhoan from './TaiKhoan';
+import TimKiem from './TimKiem';
 const routesMain = [
   {key: 0, title: 'Home'},
   {key: 1, title: 'Tìm kiếm'},
   {key: 2, title: 'Bookmark'},
   {key: 3, title: 'Tài khoản'},
 ];
-const TabMain = () => {
+
+const TabMain = (props: any) => {
   const [index, setIndex] = useState(0);
   const routes = useRef(routesMain);
-  const renderScene = ({route}: {route: {key: string}}) => {
+  const renderScene = ({route}: {route: {key: number}}) => {
     switch (route.key) {
+      case 0:
+        return <Home {...props} />;
+      case 1:
+        return <TimKiem {...props} />;
+      case 3:
+        return <TaiKhoan {...props} />;
       default:
         return <></>;
     }
