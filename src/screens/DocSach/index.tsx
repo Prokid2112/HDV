@@ -37,7 +37,7 @@ const DocSach = (props: any) => {
             cache: true,
           }}
           onLoadComplete={(numberOfPages, filePath) => {
-            console.log(`Number of pages: ${numberOfPages}`);
+            console.log(`Number of page: ${numberOfPages}`);
           }}
           onPageChanged={(page, numberOfPages) => {
             console.log(`Current page: ${page}`);
