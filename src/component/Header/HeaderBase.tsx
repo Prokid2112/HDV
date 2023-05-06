@@ -27,6 +27,7 @@ type Props = {
   hasButton?: boolean;
   rightButton?: ReactChild;
   onPressRightButton?: () => void;
+  childrenLeft?: any;
 };
 
 const HeaderBase: FunctionComponent<Props> = (props: Props) => {
@@ -39,16 +40,22 @@ const HeaderBase: FunctionComponent<Props> = (props: Props) => {
     hasButton,
     rightButton,
     onPressRightButton,
+    childrenLeft,
   } = props;
   return (
     <>
       <MyStatusBar />
       <View style={[styles.container, customStyleHeader]}>
-        <ContentView
-          disableBack={disableBack}
-          title={title}
-          onPress={onPress}
-        />
+        {childrenLeft ? (
+          childrenLeft
+        ) : (
+          <ContentView
+            disableBack={disableBack}
+            title={title}
+            onPress={onPress}
+          />
+        )}
+
         <ViewRight
           imageVisibility={imageVisibility}
           hasButton={hasButton}
@@ -141,13 +148,13 @@ const styles = StyleSheet.create({
     color: R.colors.white,
     fontFamily: R.fonts.RobotoMedium,
     fontSize: getFont(17),
-    lineHeight: getLineHeight(24),
+    lineHeight: getLineHeight(28),
   },
   titleMain: {
     color: R.colors.white,
     fontFamily: R.fonts.RobotoMedium,
     fontSize: getFont(24),
-    lineHeight: getLineHeight(24),
+    lineHeight: getLineHeight(32),
     marginLeft: WIDTH(12),
   },
   viewLeft: {

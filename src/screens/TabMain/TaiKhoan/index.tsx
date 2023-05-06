@@ -27,6 +27,7 @@ const TaiKhoan = (props: any) => {
         fontSize={getFont(24)}>
         Người dùng 1
       </Text>
+
       <Pressable
         w={WIDTH(343)}
         marginTop={HEIGHT(8)}
@@ -34,7 +35,28 @@ const TaiKhoan = (props: any) => {
         bgColor={R.colors.gray30}
         padding={WIDTH(8)}
         alignSelf={'center'}
-        borderRadius={'2xl'}
+        borderRadius={'xl'}
+        flexDirection="row"
+        onPress={() => {
+          props.navigation.navigate('ThemSach');
+        }}
+        alignItems={'center'}>
+        <Entypo name="plus" size={WIDTH(20)} color={R.colors.black0} />
+        <Text
+          marginLeft={WIDTH(16)}
+          color={R.colors.black0}
+          fontSize={getFont(18)}>
+          Thêm sách
+        </Text>
+      </Pressable>
+      <Pressable
+        w={WIDTH(343)}
+        marginTop={HEIGHT(8)}
+        paddingLeft={HEIGHT(20)}
+        bgColor={R.colors.gray30}
+        padding={WIDTH(8)}
+        alignSelf={'center'}
+        borderRadius={'xl'}
         flexDirection="row"
         onPress={() => {
           props.navigation.replace('Intro');

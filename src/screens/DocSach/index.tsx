@@ -33,7 +33,7 @@ const DocSach = (props: any) => {
         <Pdf
           trustAllCerts={false}
           source={{
-            uri: 'https://drive.google.com/uc?export=download&id=1j_ey8j7A5UoEWkt2wFrEIsMpAOPV2vlm',
+            uri: 'https://firebasestorage.googleapis.com/v0/b/btl-thietbididong.appspot.com/o/file-sample_150kB.pdf?alt=media&token=678a1dee-181e-45ad-9600-942d4e90f057',
             cache: true,
           }}
           onLoadComplete={(numberOfPages, filePath) => {

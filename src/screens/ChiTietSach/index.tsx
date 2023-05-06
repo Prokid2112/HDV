@@ -8,7 +8,6 @@ import R from '../../assets/R';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {View, Center, Image} from 'native-base';
 const ChiTietSach = (props: any) => {
-  console.log('🚀 ~ file: index.tsx:11 ~ ChiTietSach ~ props:', props);
   return (
     <View style={{flex: 1}}>
       <HeaderBase

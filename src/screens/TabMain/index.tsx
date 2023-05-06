@@ -16,10 +16,11 @@ import {WIDTH} from '../../config';
 import Home from './Home';
 import TaiKhoan from './TaiKhoan';
 import TimKiem from './TimKiem';
+import TheLoai from './TheLoai';
 const routesMain = [
   {key: 0, title: 'Home'},
   {key: 1, title: 'Tìm kiếm'},
-  {key: 2, title: 'Bookmark'},
+  {key: 2, title: 'Thể loại'},
   {key: 3, title: 'Tài khoản'},
 ];
 
@@ -29,9 +30,16 @@ const TabMain = (props: any) => {
   const renderScene = ({route}: {route: {key: number}}) => {
     switch (route.key) {
       case 0:
-        return <Home {...props} />;
+        return (
+          <Home
+            {...props}
+            onChangeIndex={(index: number) => onChangeIndex(index, index)}
+          />
+        );
       case 1:
         return <TimKiem {...props} />;
+      case 2:
+        return <TheLoai {...props} />;
       case 3:
         return <TaiKhoan {...props} />;
       default:
@@ -115,7 +123,7 @@ const ItemIcon = ({titles, color}: {titles: string; color: string}) => {
 
     case 'Tìm kiếm':
       return <Ionicons name="search" size={WIDTH(20)} color={color} />;
-    case 'Bookmark':
+    case 'Thể loại':
       return <MaterialIcons name="storage" size={WIDTH(20)} color={color} />;
     case 'Tài khoản':
       return (

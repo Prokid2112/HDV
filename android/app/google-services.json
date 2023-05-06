@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "827512706032",
+    "project_id": "btl-thietbididong",
+    "storage_bucket": "btl-thietbididong.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827512706032:android:6ec96446b5cae9b4de4335",
+        "android_client_info": {
+          "package_name": "com.hdv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827512706032-j2r0lia99qmlpcb0dshuvir85dhkbp7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9DwY4sPG70fOY90NmEmhSvjUZ3_sVuro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827512706032-j2r0lia99qmlpcb0dshuvir85dhkbp7j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

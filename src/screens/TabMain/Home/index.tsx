@@ -3,12 +3,20 @@ import {View, Text, FlatList} from 'react-native';
 import HeaderBase from '../../../component/Header/HeaderBase';
 import styles from './styles';
 import MucTheLoai from './Items/MucTheLoai';
+import SwiperFeat from './Items/SwiperFeat';
+import HeaderHome from './Items/HeaderHome';
 const Home = (props: any) => {
   return (
     <View style={{flex: 1}}>
-      <HeaderBase title="Home" />
+      <HeaderBase
+        childrenLeft={<HeaderHome onPress={() => props?.onChangeIndex(3)} />}
+        title="Home"
+      />
+
+      <SwiperFeat />
+
       <FlatList
-        data={[1, 2, 3, 4, 5, 6]}
+        data={[1]}
         renderItem={({item, index}) => {
           return <MucTheLoai {...props} />;
         }}

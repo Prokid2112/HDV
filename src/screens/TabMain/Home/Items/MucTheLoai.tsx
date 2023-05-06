@@ -4,7 +4,6 @@ import R from '../../../../assets/R';
 import {getFont, HEIGHT, WIDTH} from '../../../../config';
 import TruyenItem from './TruyenItem';
 const MucTheLoai = (props: any) => {
-  console.log('🚀 ~ file: MucTheLoai.tsx:7 ~ MucTheLoai ~ props:', props);
   return (
     <View>
       <Text style={styles.title}>Khoa học viễn tưởng</Text>

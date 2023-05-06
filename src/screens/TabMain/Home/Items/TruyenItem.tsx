@@ -5,7 +5,6 @@ import R from '../../../../assets/R';
 import {HEIGHT, WIDTH} from '../../../../config';
 
 const TruyenItem = (props: any) => {
-  console.log('🚀 ~ file: TruyenItem.tsx:8 ~ TruyenItem ~ props:', props);
   return (
     <TouchableOpacity
       style={styles.container}
