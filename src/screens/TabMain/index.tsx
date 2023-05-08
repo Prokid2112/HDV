@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {TabView} from 'react-native-tab-view';
 import {
   FlatList,
@@ -13,6 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import R from '../../assets/R';
 import {WIDTH} from '../../config';
+import firestore from '@react-native-firebase/firestore';
 import Home from './Home';
 import TaiKhoan from './TaiKhoan';
 import TimKiem from './TimKiem';
@@ -27,6 +28,19 @@ const routesMain = [
 const TabMain = (props: any) => {
   const [index, setIndex] = useState(0);
   const routes = useRef(routesMain);
+  const ref = firestore().collection('books');
+  const [loading, setLoading] = useState(true);
+  const [books, setBooks] = useState<any>([]);
+  useEffect(() => {
+    return ref.onSnapshot(querySnapshot => {
+      const list: any = [];
+      querySnapshot.forEach(doc => {
+        const item = doc.data();
+        list.push(item);
+      });
+      setBooks(list);
+    });
+  }, []);
   const renderScene = ({route}: {route: {key: number}}) => {
     switch (route.key) {
       case 0:
@@ -34,12 +48,13 @@ const TabMain = (props: any) => {
           <Home
             {...props}
             onChangeIndex={(index: number) => onChangeIndex(index, index)}
+            data={books}
           />
         );
       case 1:
-        return <TimKiem {...props} />;
+        return <TimKiem {...props} data={books} />;
       case 2:
-        return <TheLoai {...props} />;
+        return <TheLoai {...props} data={books} />;
       case 3:
         return <TaiKhoan {...props} />;
       default:
@@ -101,7 +116,6 @@ const TabMain = (props: any) => {
   };
   return (
     <TabView
-      lazy
       renderTabBar={renderTabBar}
       navigationState={{
         index,

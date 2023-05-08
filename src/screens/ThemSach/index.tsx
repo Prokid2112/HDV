@@ -26,6 +26,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import {View, Center, Image} from 'native-base';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import {Icon, Select} from 'native-base';
 const ThemSach = (props: any) => {
   const data = useRef({
     title: '',
@@ -42,6 +43,7 @@ const ThemSach = (props: any) => {
   const [urlFile, seturlFile] = useState<any>('');
   const [weburlBia, setWebUrlBia] = useState<any>('');
   const [weburlFile, setWeburlFile] = useState<any>('');
+  const [type, setType] = useState<any>('');
   const [uploading, setUploading] = useState(false);
   const dataBia = useRef<any>('');
   const dataFile = useRef<any>('');
@@ -86,6 +88,30 @@ const ThemSach = (props: any) => {
       console.log('🚀 ~ file: index.tsx:72 ~ onPress ~ error:', error);
     }
   };
+  const checkAdd = () => {
+    const body = {
+      title: title,
+      noiDung: noiDung,
+
+      theLoai: type,
+      urlBia: urlBia,
+      urlFile: urlFile,
+    };
+    if (title == '') {
+      Alert.alert('Thông báo', 'Vui lòng nhập tiêu đề truyện');
+    } else if (noiDung == '') {
+      Alert.alert('Thông báo', 'Vui lòng nhập nội dung truyện');
+    } else if (type == '') {
+      Alert.alert('Thông báo', 'Vui lòng chọn thể loại truyện');
+    } else if (urlBia == '') {
+      Alert.alert('Thông báo', 'Vui lòng chọn ảnh bìa truyện');
+    } else if (urlFile == '') {
+      Alert.alert('Thông báo', 'Vui lòng chọn file truyện truyện');
+    } else addSach();
+  };
+  const goBack = () => {
+    props.navigation?.goBack();
+  };
   const addSach = async () => {
     try {
       await uploadImage();
@@ -94,17 +120,24 @@ const ThemSach = (props: any) => {
       const body = {
         title: title,
         noiDung: noiDung,
-        theLoai: 'Hành động',
+
+        theLoai: type,
         urlBia: dataBia.current,
         urlFile: dataFile.current,
       };
 
       const res = await ref.add(body);
-      Alert.alert('Đăng truyện thành công', 'Truyện của bạn đã được lưu');
+
       // console.log('🚀 ~ file: index.tsx:151 ~ addTodo ~ res:', res);
     } catch (error) {
       console.log('🚀 ~ file: index.tsx:149 ~ addTodo ~ error:', error);
     }
+    Alert.alert(
+      'Đăng truyện thành công',
+      'Truyện của bạn đã được lưu',
+      [{text: 'Ok', style: 'default', onPress: () => goBack()}],
+      {cancelable: false},
+    );
   };
   const uploadImage = async () => {
     const {uri} = urlBia;
@@ -180,6 +213,17 @@ const ThemSach = (props: any) => {
             // alignItems={'flex-start'}
             // textAlign={'center'}
           />
+          <FormControl.Label>Thể loại sách</FormControl.Label>
+          <Select
+            placeholder="Chọn thể loại"
+            selectedValue={type}
+            width={WIDTH(343)}
+            onValueChange={(itemValue: string) => setType(itemValue)}>
+            <Select.Item label="Hành động" value="Hành động" />
+            <Select.Item label="Thư giãn" value="Thư giãn" />
+            <Select.Item label="Học tập" value="Học tập" />
+            <Select.Item label="Khoa Học" value="Khoa Học" />
+          </Select>
           <FormControl.Label>Chọn Sách</FormControl.Label>
           {urlFile == '' ? (
             <Pressable
@@ -250,7 +294,7 @@ const ThemSach = (props: any) => {
             alignSelf={'center'}
             bgColor={R.colors.primaryColor}
             borderColor={R.colors.gray}
-            onPress={() => addSach()}>
+            onPress={() => checkAdd()}>
             <Text color={'white'}>Thêm truyện</Text>
           </Pressable>
         </FormControl>

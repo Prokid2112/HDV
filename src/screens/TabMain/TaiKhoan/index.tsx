@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent, useEffect, useState} from 'react';
 import {View, FlatList} from 'react-native';
 import HeaderBase from '../../../component/Header/HeaderBase';
 import styles from './styles';
@@ -6,7 +6,17 @@ import {Avatar, Text, Pressable} from 'native-base';
 import {HEIGHT, WIDTH, getFont} from '../../../config';
 import R from '../../../assets/R';
 import Entypo from 'react-native-vector-icons/Entypo';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 const TaiKhoan = (props: any) => {
+  const [name, setName] = useState('');
+  useEffect(() => {
+    const user: any = auth().currentUser;
+    console.log(
+      '🚀 ~ file: HeaderHome.tsx:12 ~ useEffect ~ user:',
+      user?._user?.email,
+    );
+    setName(user?._user?.email);
+  }, []);
   return (
     <View style={{flex: 1}}>
       <HeaderBase title="Tài Khoản" />
@@ -25,7 +35,7 @@ const TaiKhoan = (props: any) => {
         marginTop={HEIGHT(8)}
         fontWeight={'extrabold'}
         fontSize={getFont(24)}>
-        Người dùng 1
+        {name}
       </Text>
 
       <Pressable
