@@ -1,8 +1,45 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import LoginScreen from 'react-native-login-screen';
 import R from '../../assets/R';
 import {HEIGHT} from '../../config';
+import axios from 'axios';
+const baseUrl = 'http://localhost:8082/api/auth/signin';
+import APISauce, {ApiResponse} from 'apisauce';
+import {Alert} from 'react-native';
 const Login = (props: any) => {
+  const [userName, setUserName] = useState('');
+  const [passWord, setPassWord] = useState('');
+
+  const onLogin = async () => {
+    try {
+      await axios
+        .post(
+          `http:/192.168.1.7:8082/api/auth/signin`,
+          {
+            username: userName,
+            password: passWord,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
+        )
+        .then(response => {
+          console.log(
+            '🚀 ~ file: index.tsx:28 ~ onLogin ~ response:',
+            response,
+          );
+          axios.defaults.headers.common.Authorization = `Bearer ${response?.data?.token}`;
+          props?.navigation?.replace('TabMain', {userData: response?.data});
+        });
+    } catch (error) {
+      Alert.alert('Thông báo', 'Tên đăng nhập hoặc mật khẩu không đúng');
+    }
+
+    //
+  };
+
   return (
     <LoginScreen
       disableSocialButtons
@@ -12,14 +49,11 @@ const Login = (props: any) => {
       signupText="Đăng ký ngay"
       logoImageSource={R.images.introImage}
       onLoginPress={() => {
-        props?.navigation?.replace('TabMain');
+        onLogin();
       }}
-      onSignupPress={() => {}}
-      onEmailChange={(value: string) => {
-        let username = value;
-        console.log('username: ', username);
-      }}
-      onPasswordChange={(password: string) => {}}
+      onSignupPress={() => props?.navigation?.replace('SignIn')}
+      onEmailChange={setUserName}
+      onPasswordChange={setPassWord}
       loginButtonStyle={{backgroundColor: R.colors.primaryColor}}
       signupTextStyle={{
         textDecorationLine: 'underline',
@@ -31,7 +65,8 @@ const Login = (props: any) => {
       style={{backgroundColor: R.colors.backGray}}
       emailTextInputProps={{mainColor: R.colors.primaryColor}}
       passwordTextInputProps={{mainColor: R.colors.primaryColor}}
-      enablePasswordValidation
+      // enablePasswordValidation
+      disableEmailValidation
     />
   );
 };

@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     elevation: 10,
     justifyContent: 'center',
     marginBottom: Platform.OS === 'android' ? HEIGHT(10) : HEIGHT(22),
-    width: getWidth() / 4,
+    width: getWidth() / 2,
     zIndex: 15,
   },
   diemDanh: {

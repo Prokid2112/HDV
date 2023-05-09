@@ -6,11 +6,12 @@ import {HEIGHT, WIDTH} from '../../../../config';
 
 const TruyenItem = (props: any) => {
   console.log('🚀 ~ file: TruyenItem.tsx:8 ~ TruyenItem ~ props:', props);
+  const data = props?.data;
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
-        props?.navigation.navigate('ChiTietSach');
+        props?.navigation.navigate('ChiTietSach', {data: data});
       }}>
       <Image
         resizeMethod="auto"
@@ -19,7 +20,7 @@ const TruyenItem = (props: any) => {
         style={styles.image}
       />
       <Text style={styles.text} numberOfLines={2}>
-        The place of Knowing
+        {data?.title ?? 'Chưa cập nhật'}
       </Text>
     </TouchableOpacity>
   );

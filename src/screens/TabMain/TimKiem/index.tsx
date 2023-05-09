@@ -53,10 +53,26 @@ function SearchBar() {
   );
 }
 const TimKiem = (props: any) => {
+  const data = props?.data;
+  console.log('🚀 ~ file: index.tsx:57 ~ TimKiem ~ data:', data);
   return (
     <View style={{flex: 1}}>
       <HeaderBase title="Tìm Kiếm" />
       <SearchBar />
+      <FlatList
+        data={
+          data?.filter(item => {
+            return item?.title?.contains('');
+          }) ??
+          data ??
+          []
+        }
+        renderItem={({item, index}) => {
+          return <></>;
+        }}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      />
     </View>
   );
 };

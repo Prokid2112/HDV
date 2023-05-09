@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Linking} from 'react-native';
+import {View, StyleSheet, Linking, Alert} from 'react-native';
 import Pdf from 'react-native-pdf';
 import HeaderBase from '../../component/Header/HeaderBase';
 
@@ -19,11 +19,14 @@ type Props = {
 
 const DocSach = (props: any) => {
   const sourcePDF = props.route.params?.sourcePDF;
-
+  const title = props.route.params?.title;
+  console.log('🚀 ~ file: index.tsx:22 ~ DocSach ~ sourcePDF:', sourcePDF);
+  const source = sourcePDF.replace('http://localhost', 'http://192.168.1.7');
+  console.log('🚀 ~ file: index.tsx:24 ~ DocSach ~ source:', source);
   return (
     <View style={styles.container}>
       <HeaderBase
-        title="Sách A"
+        title={title}
         disableBack={false}
         onPress={() => {
           props.navigation?.goBack();
@@ -33,7 +36,7 @@ const DocSach = (props: any) => {
         <Pdf
           trustAllCerts={false}
           source={{
-            uri: 'https://drive.google.com/uc?export=download&id=1j_ey8j7A5UoEWkt2wFrEIsMpAOPV2vlm',
+            uri: source,
             cache: true,
           }}
           onLoadComplete={(numberOfPages, filePath) => {
@@ -44,6 +47,7 @@ const DocSach = (props: any) => {
           }}
           onError={error => {
             console.log(error);
+            Alert.alert('Thông báo', 'Có lỗi sảy ra vui lòng thử lại sau');
           }}
           onPressLink={uri => {
             console.log(`Link pressed: ${uri}`);
