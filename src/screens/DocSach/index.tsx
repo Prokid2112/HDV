@@ -21,7 +21,7 @@ const DocSach = (props: any) => {
   const sourcePDF = props.route.params?.sourcePDF;
   const title = props.route.params?.title;
   console.log('🚀 ~ file: index.tsx:22 ~ DocSach ~ sourcePDF:', sourcePDF);
-  const source = sourcePDF.replace('http://localhost', 'http://192.168.1.7');
+  const source = sourcePDF.replace('http://localhost', 'http://192.168.69.50');
   console.log('🚀 ~ file: index.tsx:24 ~ DocSach ~ source:', source);
   return (
     <View style={styles.container}>

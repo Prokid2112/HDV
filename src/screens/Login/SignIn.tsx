@@ -28,7 +28,7 @@ const SignIn = (props: any) => {
     try {
       await axios
         .post(
-          `http:/192.168.1.7:8082/api/auth/signup`,
+          `http:/192.168.69.50:8082/api/auth/signup`,
           {
             fullName: fullName,
             email: email,

@@ -79,7 +79,7 @@ const TabMain = (props: any) => {
     try {
       await axios
         .get(
-          `http:/192.168.1.7:8082/api/users/${1}/mangas?page=1&limit=100`,
+          `http:/192.168.69.50:8082/api/users/${1}/mangas?page=1&limit=100`,
 
           {
             headers: {

@@ -14,7 +14,7 @@ const Login = (props: any) => {
     try {
       await axios
         .post(
-          `http:/192.168.1.7:8082/api/auth/signin`,
+          `http:/192.168.69.50:8082/api/auth/signin`,
           {
             username: userName,
             password: passWord,
@@ -34,6 +34,7 @@ const Login = (props: any) => {
           props?.navigation?.replace('TabMain', {userData: response?.data});
         });
     } catch (error) {
+      console.log('🚀 ~ file: index.tsx:37 ~ onLogin ~ error:', error);
       Alert.alert('Thông báo', 'Tên đăng nhập hoặc mật khẩu không đúng');
     }
 
@@ -51,7 +52,7 @@ const Login = (props: any) => {
       onLoginPress={() => {
         onLogin();
       }}
-      onSignupPress={() => props?.navigation?.replace('SignIn')}
+      onSignupPress={() => props?.navigation?.navigate('SignIn')}
       onEmailChange={setUserName}
       onPasswordChange={setPassWord}
       loginButtonStyle={{backgroundColor: R.colors.primaryColor}}
