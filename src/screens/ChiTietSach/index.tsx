@@ -3,61 +3,68 @@ import {FlatList} from 'react-native';
 import HeaderBase from '../../component/Header/HeaderBase';
 import styles from './styles';
 import {Avatar, Text, Pressable, Divider} from 'native-base';
-import {HEIGHT, WIDTH, getFont} from '../../config';
+import {HEIGHT, WIDTH, getFont, getWidth} from '../../config';
 import R from '../../assets/R';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {View, Center, Image} from 'native-base';
+import {background} from 'native-base/lib/typescript/theme/styled-system';
 const ChiTietSach = (props: any) => {
+  const data = props?.route?.params?.data;
+  console.log('🚀 ~ file: index.tsx:13 ~ ChiTietSach ~ data:', data);
   return (
-    <View style={{flex: 1}}>
-      <HeaderBase
-        title="Sách A"
-        disableBack={false}
-        onPress={() => {
-          props.navigation?.goBack();
-        }}
-      />
+    <View justifyContent={'space-between'} style={{flex: 1}}>
       <View>
-        <View mt={HEIGHT(20)} ml={WIDTH(12)} flexDirection={'row'}>
-          <Image
-            source={R.images.bookCover}
-            alt="Alternate Text"
-            width={WIDTH(100)}
-            height={HEIGHT(160)}
-          />
-          <View ml={WIDTH(8)}>
-            <Text bold fontSize={getFont(18)}>
-              Tiêu đề truyện
-            </Text>
-            <Text>Nội dung</Text>
-            <Text maxWidth={WIDTH(240)} color={R.colors.gray6B}>
-              Đây là câu truyện abcdefghik được xảy ra ở xyzgh
-            </Text>
+        <HeaderBase
+          title={data?.title}
+          disableBack={false}
+          onPress={() => {
+            props.navigation?.goBack();
+          }}
+        />
+        <View>
+          <View mt={HEIGHT(20)} ml={WIDTH(12)}>
+            <Image
+              source={{uri: data?.urlBia}}
+              alt="Alternate Text"
+              width={WIDTH(150)}
+              height={HEIGHT(240)}
+              alignSelf={'center'}
+              _alt={R.images.bookCover}
+            />
+            <View mt={WIDTH(24)} ml={WIDTH(8)}>
+              <Text
+                textAlign={'center'}
+                alignSelf={'center'}
+                bold
+                fontSize={getFont(24)}>
+                {data?.title}
+              </Text>
+              <Text fontSize={getFont(20)}>Thể loại: {data?.theLoai}</Text>
+              <Text fontSize={getFont(20)}>Nội dung</Text>
+              <Text fontSize={getFont(20)} color={R.colors.gray6B}>
+                {data?.noiDung}
+              </Text>
+            </View>
           </View>
         </View>
       </View>
-      <View>
-        <Text mt={WIDTH(12)} ml={WIDTH(12)} fontSize={getFont(16)} bold>
-          Chọn chương
+
+      <Pressable
+        backgroundColor={R.colors.primaryColor}
+        w={getWidth()}
+        justifyContent={'center'}
+        alignItems={'center'}
+        height={HEIGHT(60)}
+        onPress={() => {
+          props.navigation?.navigate('DocSach', {
+            title: data?.title,
+            sourcePDF: data?.urlFile,
+          });
+        }}>
+        <Text fontSize={getFont(18)} bold color={R.colors.white100}>
+          Đọc sách
         </Text>
-      </View>
-      <FlatList
-        data={[1, 2, 3, 4, 5, 6]}
-        ItemSeparatorComponent={() => <Divider />}
-        renderItem={({item, index}) => {
-          return (
-            <Pressable
-              onPress={() => {
-                props.navigation?.navigate('DocSach');
-              }}>
-              <Text fontSize={getFont(18)} my={WIDTH(8)} ml={WIDTH(20)}>
-                Chương {item}
-              </Text>
-            </Pressable>
-          );
-        }}
-        style={styles.container}
-      />
+      </Pressable>
     </View>
   );
 };

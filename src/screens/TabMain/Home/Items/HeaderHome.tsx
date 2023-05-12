@@ -7,13 +7,15 @@ import {Avatar} from 'native-base';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 const HeaderHome = (props: any) => {
   const [name, setName] = useState('');
+  const [img, setImg] = useState('');
   useEffect(() => {
     const user: any = auth().currentUser;
     console.log(
       '🚀 ~ file: HeaderHome.tsx:12 ~ useEffect ~ user:',
       user?._user?.email,
     );
-    setName(user?._user?.email);
+    setName(user?._user?.displayName ?? user?._user?.email);
+    setImg(user?._user?.photoURL);
   }, []);
   return (
     <TouchableOpacity style={styles.container} onPress={() => props?.onPress()}>
@@ -23,7 +25,7 @@ const HeaderHome = (props: any) => {
         // size="x"
         // bg="green.500"
         source={{
-          uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+          uri: img,
         }}>
         AJ
       </Avatar>

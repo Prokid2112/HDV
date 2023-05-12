@@ -4,8 +4,9 @@ import {Text} from 'react-native-animatable';
 import R from '../../../../assets/R';
 import {HEIGHT, WIDTH, getWidth} from '../../../../config';
 import Swiper from 'react-native-swiper';
+import {Pressable} from 'native-base';
 const SwiperFeat = (props: any) => {
-  const list = [1, 2, 3, 4, 5];
+  const {data} = props;
   return (
     // <TouchableOpacity
     //   style={styles.container}
@@ -28,21 +29,26 @@ const SwiperFeat = (props: any) => {
         paginationStyle={styles.wrapper}
         dotStyle={styles.dotStyle}
         activeDotStyle={styles.activeDotStyle}
-        // autoplay
+        autoplay
         height={240}
         showsButtons={false}
         // containerStyle={{height: 100}}
         // contentContainerStyle={{height: 100}}
-        //   autoplayTimeout={2}
-      >
-        {list.map((item: any) => {
+        autoplayTimeout={2}>
+        {data.map((item: any) => {
+          console.log('🚀 ~ file: SwiperFeat.tsx:39 ~ {data.map ~ item:', item);
           return (
-            <Image
-              resizeMethod="auto"
-              resizeMode="stretch"
-              source={R.images.bookBanner}
-              style={styles.image}
-            />
+            <Pressable
+              onPress={() => {
+                props?.navigation.navigate('ChiTietSach', {data: item});
+              }}>
+              <Image
+                resizeMethod="auto"
+                resizeMode="stretch"
+                source={{uri: item?.urlBia}}
+                style={styles.image}
+              />
+            </Pressable>
           );
         })}
       </Swiper>

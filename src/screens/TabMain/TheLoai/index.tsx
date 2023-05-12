@@ -6,21 +6,29 @@ import {Avatar, Text, Pressable, Image} from 'native-base';
 import {HEIGHT, WIDTH, getFont} from '../../../config';
 import R from '../../../assets/R';
 import Entypo from 'react-native-vector-icons/Entypo';
-const ItemTheLoai = ({item}: any) => {
+const ItemTheLoai = (props: any) => {
   const src = () => {
-    switch (item) {
+    switch (props?.item) {
       case 'Hành động':
         return R.images.location;
-      case 'Thư dãn':
+      case 'Thư giãn':
         return R.images.lyingdDown;
       case 'Học tập':
         return R.images.teaching;
-      case 'Khoa học':
+      case 'Khoa Học':
         return R.images.science;
     }
   };
+  const data = props.data?.filter((item: any) => item?.theLoai === props?.item);
   return (
-    <View style={styles.itemContainer}>
+    <Pressable
+      onPress={() => {
+        props?.navigation.navigate('DanhSachSach', {
+          data: data,
+          theLoai: props?.item,
+        });
+      }}
+      style={styles.itemContainer}>
       <Image
         source={src()}
         width={WIDTH(120)}
@@ -29,12 +37,12 @@ const ItemTheLoai = ({item}: any) => {
         mt={WIDTH(8)}
       />
       <Text bold alignSelf={'center'} mt={WIDTH(16)}>
-        {item}
+        {props?.item}
       </Text>
-    </View>
+    </Pressable>
   );
 };
-const listTheLoai = ['Hành động', 'Thư dãn', 'Học tập', 'Khoa học'];
+const listTheLoai = ['Hành động', 'Thư giãn', 'Học tập', 'Khoa Học'];
 const TheLoai = (props: any) => {
   return (
     <View style={{flex: 1}}>
@@ -42,7 +50,9 @@ const TheLoai = (props: any) => {
       <FlatList
         data={listTheLoai}
         numColumns={2}
-        renderItem={({item, index}: any) => <ItemTheLoai item={item} />}
+        renderItem={({item, index}: any) => (
+          <ItemTheLoai item={item} {...props} />
+        )}
       />
     </View>
   );

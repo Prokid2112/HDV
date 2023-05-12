@@ -4,13 +4,15 @@ import R from '../../../../assets/R';
 import {getFont, HEIGHT, WIDTH} from '../../../../config';
 import TruyenItem from './TruyenItem';
 const MucTheLoai = (props: any) => {
+  const {data} = props;
+  console.log('🚀 ~ file: MucTheLoai.tsx:8 ~ MucTheLoai ~ data:', data);
   return (
     <View>
-      <Text style={styles.title}>Khoa học viễn tưởng</Text>
+      <Text style={styles.title}>Nổi bật</Text>
       <FlatList
-        data={[1, 2, 3, 4, 5, 6]}
+        data={data}
         renderItem={({item, index}) => {
-          return <TruyenItem {...props} />;
+          return <TruyenItem {...props} data={item} />;
         }}
         horizontal
         showsHorizontalScrollIndicator={false}

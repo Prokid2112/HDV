@@ -6,7 +6,7 @@ export const getFont = (f: number) => f - 1;
 export const getLineHeight = (f: number) => f;
 export const getHeight = () => height;
 export const getWidth = () => width;
-export const popupOk = (title: string, msg: string, onPress = null) => {
+export const popupOk = (title: string, msg: string, onPress: any = null) => {
   Alert.alert(
     title,
     msg,

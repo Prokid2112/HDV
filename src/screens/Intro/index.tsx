@@ -7,6 +7,7 @@ import R from '../../assets/R';
 
 // style
 import styles from './styles';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 type Props = {
   navigation: any;
@@ -19,7 +20,7 @@ type Props = {
 
 const Intro = (props: any) => {
   const timeOut = React.useRef<any>(null);
-
+  const user: any = auth().currentUser;
   React.useEffect(() => {
     changeScreen('Login');
   }, []);
@@ -27,7 +28,12 @@ const Intro = (props: any) => {
   const changeScreen = (routeName: string, param = {}) => {
     clearTimeout(timeOut.current);
     timeOut.current = setTimeout(() => {
-      props?.navigation.replace('Login');
+      // if()
+      if (user == null) {
+        props?.navigation.replace('Login');
+      } else {
+        props?.navigation.replace('TabMain');
+      }
     }, 1600);
   };
 

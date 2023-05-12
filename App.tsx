@@ -9,6 +9,9 @@ import {NativeBaseProvider} from 'native-base';
 import ChiTietSach from './src/screens/ChiTietSach';
 import DocSach from './src/screens/DocSach';
 import ThemSach from './src/screens/ThemSach';
+import DanhSachSach from './src/screens/DanhSachSach';
+import Signup from './src/screens/Login/SignIn';
+import DoiThongTinCaNhan from './src/screens/DoiThongTinCaNhan';
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -26,6 +29,12 @@ function App() {
           <Stack.Screen name="DocSach" component={DocSach} />
           <Stack.Screen name="ChiTietSach" component={ChiTietSach} />
           <Stack.Screen name="ThemSach" component={ThemSach} />
+          <Stack.Screen name="DanhSachSach" component={DanhSachSach} />
+          <Stack.Screen name="Signup" component={Signup} />
+          <Stack.Screen
+            name="DoiThongTinCaNhan"
+            component={DoiThongTinCaNhan}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>

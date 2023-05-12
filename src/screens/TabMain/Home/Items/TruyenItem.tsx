@@ -1,24 +1,29 @@
 import React from 'react';
-import {View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Text} from 'react-native-animatable';
 import R from '../../../../assets/R';
 import {HEIGHT, WIDTH} from '../../../../config';
+import {Image} from 'native-base';
 
 const TruyenItem = (props: any) => {
+  const {data} = props;
+  console.log('🚀 ~ file: TruyenItem.tsx:9 ~ TruyenItem ~ data:', data);
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
-        props?.navigation.navigate('ChiTietSach');
+        props?.navigation.navigate('ChiTietSach', {data: data});
       }}>
       <Image
-        resizeMethod="auto"
-        resizeMode="contain"
-        source={R.images.bookCover}
-        style={styles.image}
+        source={{uri: data?.urlBia}}
+        alt="Alternate Text"
+        width={WIDTH(120)}
+        height={HEIGHT(160)}
+        alignSelf={'center'}
+        _alt={R.images.bookCover}
       />
       <Text style={styles.text} numberOfLines={2}>
-        The place of Knowing
+        {data?.title}
       </Text>
     </TouchableOpacity>
   );

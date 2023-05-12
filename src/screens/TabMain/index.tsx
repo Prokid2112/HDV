@@ -29,7 +29,7 @@ const TabMain = (props: any) => {
   const [index, setIndex] = useState(0);
   const routes = useRef(routesMain);
   const ref = firestore().collection('books');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [books, setBooks] = useState<any>([]);
   useEffect(() => {
     return ref.onSnapshot(querySnapshot => {
@@ -38,10 +38,16 @@ const TabMain = (props: any) => {
         const item = doc.data();
         list.push(item);
       });
+      console.log('🚀 ~ file: index.tsx:43 ~ useEffect ~ list:', list);
+
       setBooks(list);
     });
   }, []);
   const renderScene = ({route}: {route: {key: number}}) => {
+    if (loading) {
+      console.log('🚀 ~ file: index.tsx:48 ~ renderScene ~ loading:', loading);
+      return <></>;
+    }
     switch (route.key) {
       case 0:
         return (
@@ -56,7 +62,7 @@ const TabMain = (props: any) => {
       case 2:
         return <TheLoai {...props} data={books} />;
       case 3:
-        return <TaiKhoan {...props} />;
+        return <TaiKhoan {...props} setLoading={setLoading} />;
       default:
         return <></>;
     }

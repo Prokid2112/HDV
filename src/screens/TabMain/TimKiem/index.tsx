@@ -1,8 +1,7 @@
 import React, {PureComponent, useState, useEffect} from 'react';
-import {View, FlatList, Platform, Alert} from 'react-native';
+import {View, FlatList, Platform, Alert, TextComponent} from 'react-native';
 import HeaderBase from '../../../component/Header/HeaderBase';
 import styles from './styles';
-import storage from '@react-native-firebase/storage';
 import auth from '@react-native-firebase/auth';
 import {
   Avatar,
@@ -16,20 +15,13 @@ import {
   Icon,
   Image,
 } from 'native-base';
-import DocumentPicker, {
-  DirectoryPickerResponse,
-  DocumentPickerResponse,
-  isInProgress,
-  types,
-} from 'react-native-document-picker';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {WIDTH, popupOk} from '../../../config';
+import {WIDTH, getFont, popupOk} from '../../../config';
 import R from '../../../assets/R';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {Button} from 'react-native';
-import firestore from '@react-native-firebase/firestore';
-function SearchBar() {
+
+import ItemBook from '../../../component/Items/ItemBook';
+function SearchBar({setText}: any) {
   return (
     <VStack
       my="4"
@@ -44,7 +36,7 @@ function SearchBar() {
       }>
       <VStack w="100%" space={5} alignSelf="center">
         <Input
-          onChangeText={}
+          onChangeText={setText}
           placeholder="Search"
           variant="filled"
           width="100%"
@@ -69,48 +61,22 @@ function SearchBar() {
 const TimKiem = (props: any) => {
   const [text, setText] = useState<any>('');
 
-  const data = props?.data;
-
-  const signUp = () => {
-    // firebase.
-    auth()
-      .createUserWithEmailAndPassword('tomcat2@gmail.com', '123456')
-      .then(() => {
-        popupOk('Thông báo', 'Đăng ký thành công');
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          popupOk('Thông báo', 'Email đã được sử dụng');
-        } else if (error.code === 'auth/invalid-email') {
-          popupOk('Thông báo', 'Định dạng email không hợp lệ');
-        } else {
-          popupOk('Thông báo', 'Đăng ký thất bại');
-        }
-      });
-  };
-  const login = () => {
-    // firebase.
-    auth()
-      .signInWithEmailAndPassword('tomcat2@gmail.com', '123456')
-      .then(data => {
-        console.log('🚀 ~ file: index.tsx:129 ~ .then ~ data:', data);
-        popupOk('Thông báo', 'Đăng nhập thành công');
-      })
-      .catch(error => {
-        if (error.code === 'auth/email-already-in-use') {
-          popupOk('Thông báo', 'Email đã được sử dụng');
-        } else if (error.code === 'auth/invalid-email') {
-          popupOk('Thông báo', 'Định dạng email không hợp lệ');
-        } else {
-          popupOk('Thông báo', 'Đăng nhập thất bại');
-        }
-      });
-  };
+  const data = props?.data?.filter((item: any) => {
+    return item.title?.includes(text);
+  });
 
   return (
     <View style={{flex: 1}}>
       <HeaderBase title="Tìm Kiếm" />
-      <SearchBar />
+      <SearchBar setText={setText} />
+      <FlatList
+        data={data}
+        extraData={text}
+        ItemSeparatorComponent={() => <Divider />}
+        renderItem={({item, index}) => {
+          return <ItemBook dataBook={item} {...props} />;
+        }}
+      />
     </View>
   );
 };
